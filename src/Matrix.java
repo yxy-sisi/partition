@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Matrix<T> {
@@ -64,6 +65,25 @@ public class Matrix<T> {
 		String tempColumnName = columnNames.get(i);
 		columnNames.set(i, columnNames.get(j));
 		columnNames.set(j, tempColumnName);
+	}
+
+	public Matrix<T> subMatrix(int row1, int col1, int row2, int col2) {
+		int maxRow = row1 > row2 ? row1 : row2;
+		int maxColumn = col1 > col2 ? col1 : col2;
+		int minRow = row1 < row2 ? row1 : row2;
+		int minColumn = col1 < col2 ? col1 : col2;
+		List<String> subColumnNames = new ArrayList<String>(
+				columnNames.subList(minColumn, maxColumn + 1));
+		List<String> subRowNames = new ArrayList<String>(rowNames.subList(
+				minRow, maxRow + 1));
+		List<List<T>> subMatrixData = new ArrayList<List<T>>();
+		for (int col = minColumn; col < maxColumn; col++) {
+			List<T> rowData = new ArrayList<T>();
+			for (int row = minRow; row <= maxRow; row++) {
+				rowData.add(get(row, col));
+			}
+		}
+		return new Matrix<T>(subMatrixData, subColumnNames, subRowNames);
 	}
 
 	/**
