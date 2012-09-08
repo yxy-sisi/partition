@@ -62,7 +62,7 @@ public class Matrix<T> {
 	 * shift the first clomun and row to last
 	 */
 	public void shift() {
-		swapColumn(0, columnNames.size());
-		swapRow(0, rowNames.size());
+		swapColumn(0, columnNames.size() - 1);
+		swapRow(0, rowNames.size() - 1);
 	}
 }
