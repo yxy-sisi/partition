@@ -31,7 +31,10 @@ public class Partition {
 			return maxResult;
 		} else {
 			for (int i = 1; i < affMatrix.getRows(); i++) {
-
+				Result maxResult = null;
+				for (int j = 0; j < affMatrix.getRows() - 1; j++) {
+					
+				}
 			}
 		}
 		return null;
