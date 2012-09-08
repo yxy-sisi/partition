@@ -14,6 +14,10 @@ public class Matrix<T> {
 		this.rowNames = rowNames;
 	}
 
+	public List<T> getRow(int row) {
+		return data.get(row);
+	}
+
 	public int getRows() {
 		return rowNames.size();
 	}
@@ -92,5 +96,20 @@ public class Matrix<T> {
 	public void shift() {
 		swapColumn(0, columnNames.size() - 1);
 		swapRow(0, rowNames.size() - 1);
+	}
+
+	public void print() {
+		System.out.print("\t");
+		for (String colName : columnNames) {
+			System.out.print(colName + "\t");
+		}
+		System.out.println();
+		for (int row = 0; row < getRows(); row++) {
+			System.out.print(rowNames.get(row) + "\t");
+			for (int col = 0; col < getColumns(); col++) {
+				System.out.print(get(row, col) + "\t");
+			}
+			System.out.println();
+		}
 	}
 }

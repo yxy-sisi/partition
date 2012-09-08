@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Partition {
 
@@ -8,42 +10,74 @@ public class Partition {
 	}
 
 	public List<List<String>> partition(Matrix<Integer> affMatrix,
-			Matrix<Integer> accMatrix) {
-
-		for (int cut = 0; cut < affMatrix.getRows(); cut++) {
-
-		}
-		// TODO
-		return null;
-	}
-
-	public Result partition(int cut, Matrix<Integer> affMatrix,
-			Matrix<Integer> accMatrix) {
-		if (cut == 1) {
-			Result maxResult = null;
-			for (int i = 1; i < affMatrix.getRows(); i++) {
-				Result result = calculateMaxZ(affMatrix, accMatrix);
-				if (maxResult == null || result.z > maxResult.z) {
-					maxResult = result;
-				}
-				affMatrix.shift();
+			Matrix<Integer> attUsageMatrix, Map<String, Integer> acc) {
+		Result max = null;
+		for (int i = 1; i < affMatrix.getRows(); i++) {
+			Result result = calculateMaxZ(affMatrix, attUsageMatrix, acc);
+			if (max == null || max.z < result.z) {
+				max = result;
 			}
-			return maxResult;
-		} else {
-			for (int i = 1; i < affMatrix.getRows(); i++) {
-				Result maxResult = null;
-				for (int j = 0; j < affMatrix.getRows() - 1; j++) {
-					
-				}
-			}
+			affMatrix.shift();
 		}
-		return null;
-
+		return max.partitions;
 	}
 
 	private Result calculateMaxZ(Matrix<Integer> affMatrix,
-			Matrix<Integer> accMatrix) {
-		// TODO Auto-generated method stub
-		return null;
+			Matrix<Integer> attUsageMatrix, Map<String, Integer> acc) {
+		Result max = null;
+		for (int i = 1; i < affMatrix.getRows(); i++) {
+			Result result = calacuteZ(affMatrix, attUsageMatrix, acc, i);
+			if (max == null || max.z < result.z) {
+				max = result;
+			}
+		}
+		return max;
+	}
+
+	private Result calacuteZ(Matrix<Integer> affMatrix,
+			Matrix<Integer> attUsageMatrix, Map<String, Integer> acc, int i) {
+		List<String> tqAttrs = affMatrix.columnNames.subList(0, i);
+		List<String> tqs = new ArrayList<String>();
+		for (int j = 0; j < attUsageMatrix.getRows(); j++) {
+			tqAttrs.containsAll(attUsageMatrix.getRow(j));
+			tqs.add(attUsageMatrix.rowNames.get(j));
+		}
+		int ctq = 0;
+		for (String tq : tqs) {
+			ctq += acc.get(tq);
+		}
+
+		List<String> bqAttrs = affMatrix.columnNames.subList(i,
+				affMatrix.getRows());
+		List<String> bqs = new ArrayList<String>();
+		for (int j = 0; j < attUsageMatrix.getRows(); j++) {
+			bqAttrs.containsAll(attUsageMatrix.getRow(j));
+			bqs.add(attUsageMatrix.rowNames.get(j));
+		}
+		int cbq = 0;
+
+		for (String bq : bqs) {
+			cbq += acc.get(bq);
+		}
+
+		List<String> oqs = new ArrayList<String>();
+		for (String q : attUsageMatrix.rowNames) {
+			if (!tqs.contains(q) && !bqs.contains(q)) {
+				oqs.add(q);
+			}
+		}
+
+		int coq = 0;
+		for (String oq : oqs) {
+			coq += acc.get(oq);
+		}
+		int z = ctq * cbq - coq * coq;
+		Result result = new Result();
+		result.z = z;
+		result.partitions = new ArrayList<List<String>>();
+		result.partitions.add(tqAttrs);
+		result.partitions.add(bqAttrs);
+		return result;
+
 	}
 }
