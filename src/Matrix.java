@@ -13,6 +13,14 @@ public class Matrix<T> {
 		this.rowNames = rowNames;
 	}
 
+	public int getRows() {
+		return rowNames.size();
+	}
+
+	public int getColumns() {
+		return columnNames.size();
+	}
+
 	public void set(int row, int column, T value) {
 		this.data.get(row).set(column, value);
 	}
