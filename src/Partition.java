@@ -22,11 +22,11 @@ public class Partition {
 		if (cut == 1) {
 			Result maxResult = null;
 			for (int i = 1; i < affMatrix.getRows(); i++) {
-				affMatrix.shift();
 				Result result = calculateMaxZ(affMatrix, accMatrix);
 				if (maxResult == null || result.z > maxResult.z) {
 					maxResult = result;
 				}
+				affMatrix.shift();
 			}
 			return maxResult;
 		} else {
