@@ -14,16 +14,26 @@ public class Input {
 		String line = br.readLine(); // read by line
 		List<String> rowNames = new ArrayList<String>();
 		List<String> columnNames = parserColumnNames(line);
-		line = br.readLine();
+		line = readNextNonEmptyLine(br);
 		do {
 			List<Integer> row = parseRow(line, rowNames);
-			matrixData.add(row);
-			line = br.readLine();
+			if (!row.isEmpty())
+				matrixData.add(row);
+			line = readNextNonEmptyLine(br);
 		} while (line != null);
 		Matrix<Integer> matrix = new Matrix<Integer>(matrixData, columnNames,
 				rowNames);
 		br.close();
 		return matrix;
+	}
+
+	String readNextNonEmptyLine(BufferedReader br) throws IOException {
+		String line = br.readLine();
+		while (line != null && line.trim().isEmpty()) {
+			line = br.readLine();
+		}
+		return line;
+
 	}
 
 	private List<String> parserColumnNames(String line) {
@@ -42,12 +52,12 @@ public class Input {
 		for (String cell : cellStrings) {
 			if (cell.matches("^\\d+$")) {
 				row.add(Integer.parseInt(cell));
-			}
-
-			else if (cell != null && !cell.trim().isEmpty()) {
+			} else if (cell != null && !cell.trim().isEmpty()) {
 				rowNames.add(cell);
 			}
 		}
 		return row;
 	}
+	
+	
 }

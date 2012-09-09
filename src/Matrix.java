@@ -12,6 +12,20 @@ public class Matrix<T> {
 		this.data = data;
 		this.columnNames = columnNames;
 		this.rowNames = rowNames;
+		// check rows, columns match with data
+		verify();
+	}
+
+	private void verify() {
+		if (rowNames.size() != data.size()) {
+			throw new IllegalStateException("rows not match with data");
+		}
+		for (List<T> row : data) {
+			if (row.size() != columnNames.size()) {
+				throw new IllegalStateException("column not match with data ");
+			}
+		}
+
 	}
 
 	public List<T> getRow(int row) {
