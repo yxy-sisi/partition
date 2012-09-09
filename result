@@ -1,4 +1,8 @@
-case 1 :   [A1, A7, A4, A6], [A8, A2, A5, A3]
-case 2 :   [A1, A13, A11, A7], [A16, A14, A12, A9, A8, A6, A5, A4, A15, A10, A3, A2]
+case 1 
+	|--partition 1:[A1, A7, A4, A6],  
+	|--partition 2: [A8, A2, A5, A3]
+case 2 
+    |--partition 1 : [A1, A13, A11, A7]
+    |--partition 2 : [A16, A14, A12, A9, A8, A6, A5, A4, A15, A10, A3, A2]
 
-  ---- check relation.txt file to find what A1,A2...An  is
+  ---- check relation.txt file in the case folder to find what A1,A2...An  is
