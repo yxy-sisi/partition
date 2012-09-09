@@ -19,12 +19,9 @@ public class Main {
 			String accInputFile) throws IOException {
 		Input input = new Input();
 		Matrix<Integer> attifyMatrix = input.readAsMatrix(caInputFile);
-		attifyMatrix.print();
 		Matrix<Integer> accMatrix = input.readAsMatrix(accInputFile);
 		Map<String, Integer> acc = calcuteAcc(accMatrix);
-		accMatrix.print();
 		Matrix<Integer> attUsageMatrix = input.readAsMatrix(refInputFile);
-		attUsageMatrix.print();
 
 		Partition p = new Partition();
 		List<List<String>> partitions = p.partition(attifyMatrix,
