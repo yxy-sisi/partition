@@ -39,8 +39,9 @@ public class Partition {
 		List<String> tqAttrs = affMatrix.columnNames.subList(0, i);
 		List<String> tqs = new ArrayList<String>();
 		for (int j = 0; j < attUsageMatrix.getRows(); j++) {
-			tqAttrs.containsAll(attUsageMatrix.getRow(j));
-			tqs.add(attUsageMatrix.rowNames.get(j));
+			if (tqAttrs.containsAll(attribeReferedByQuery(attUsageMatrix, j))) {
+				tqs.add(attUsageMatrix.rowNames.get(j));
+			}
 		}
 		int ctq = 0;
 		for (String tq : tqs) {
@@ -51,8 +52,8 @@ public class Partition {
 				affMatrix.getRows());
 		List<String> bqs = new ArrayList<String>();
 		for (int j = 0; j < attUsageMatrix.getRows(); j++) {
-			bqAttrs.containsAll(attUsageMatrix.getRow(j));
-			bqs.add(attUsageMatrix.rowNames.get(j));
+			if (bqAttrs.containsAll(attribeReferedByQuery(attUsageMatrix, j)))
+				bqs.add(attUsageMatrix.rowNames.get(j));
 		}
 		int cbq = 0;
 
@@ -79,5 +80,17 @@ public class Partition {
 		result.partitions.add(bqAttrs);
 		return result;
 
+	}
+
+	private List<String> attribeReferedByQuery(Matrix<Integer> attUsageMatrix, int j) {
+		List<String> attrRefered = new ArrayList<String>();
+		for(int col = 0 ; col <attUsageMatrix.getColumns();col++){
+			int isUsed = attUsageMatrix.get(j, col);
+			if(isUsed == 1){
+				attrRefered.add(attUsageMatrix.columnNames.get(col));
+			}
+		}
+		return attrRefered;
+		
 	}
 }

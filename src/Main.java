@@ -10,10 +10,10 @@ public class Main {
 		String refInputFile1 = "case/1/ref.txt";
 		String accInputFile1 = "case/1/acc.txt";
 		runTest(caInputFile1, refInputFile1, accInputFile1);
-		String caInputFile2 = "case/2/ca.txt";
-		String refInputFile2 = "case/2/ref.txt";
-		String accInputFile2 = "case/2/acc.txt";
-		runTest(caInputFile2, refInputFile2, accInputFile2);
+		// String caInputFile2 = "case/2/ca.txt";
+		// String refInputFile2 = "case/2/ref.txt";
+		// String accInputFile2 = "case/2/acc.txt";
+		// runTest(caInputFile2, refInputFile2, accInputFile2);
 
 	}
 
