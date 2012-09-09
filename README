@@ -3,8 +3,9 @@ It is just a demo!!!
 
 Project layout
  root |-- src                 ********** the source code
- 	  |-- case				  ********** input files of tow case
+ 	  |-- case				  ********** input files of tow cases
  	  |--README			      ********** simple documentation
+ 	  |-- partition.jar 	  ********** the executable jar
  
  
  
