@@ -49,40 +49,14 @@ public class Matrix<T> {
 	}
 
 	/**
-	 * swap data of row i, and j
-	 * 
-	 * @param i
-	 * @param j
-	 */
-	public void swapRow(int i, int j) {
-		// swap entire row
-		List<T> temp = data.get(i);
-		data.set(i, data.get(j));
-		data.set(j, temp);
-		// swap row name
-		String tempRowName = rowNames.get(i);
-		rowNames.set(i, rowNames.get(j));
-		rowNames.set(j, tempRowName);
-	}
-
-	/**
 	 * swap data of cloumn i, and j
 	 * 
 	 * @param i
 	 * @param j
 	 */
-	public void swapColumn(int i, int j) {
-		// swap the column row by row
-		for (int row = 0; row < rowNames.size(); row++) {
-			T temp = get(row, i);
-			set(row, i, get(row, j));
-			set(row, j, temp);
-		}
-
-		// swap column name
-		String tempColumnName = columnNames.get(i);
-		columnNames.set(i, columnNames.get(j));
-		columnNames.set(j, tempColumnName);
+	public void shifRow() {
+		shift(data);
+		shift(rowNames);
 	}
 
 	public Matrix<T> subMatrix(int row1, int col1, int row2, int col2) {
@@ -105,11 +79,29 @@ public class Matrix<T> {
 	}
 
 	/**
+	 * shift the first element to last
+	 * 
+	 * @param list
+	 */
+	private <E> void shift(List<E> list) {
+		E first = list.get(0);
+		list.remove(0);
+		list.add(first);
+	}
+
+	/**
 	 * shift the first clomun and row to last
 	 */
 	public void shift() {
-		swapColumn(0, columnNames.size() - 1);
-		swapRow(0, rowNames.size() - 1);
+		shifRow();
+		shifColumn();
+	}
+
+	private void shifColumn() {
+		for (List<T> row : data) {
+			shift(row);
+		}
+		shift(columnNames);
 	}
 
 	public void print() {
@@ -126,4 +118,5 @@ public class Matrix<T> {
 			System.out.println();
 		}
 	}
+
 }

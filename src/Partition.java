@@ -36,7 +36,8 @@ public class Partition {
 
 	private Result calacuteZ(Matrix<Integer> affMatrix,
 			Matrix<Integer> attUsageMatrix, Map<String, Integer> acc, int i) {
-		List<String> tqAttrs = affMatrix.columnNames.subList(0, i);
+		List<String> tqAttrs = new ArrayList<String>(
+				affMatrix.columnNames.subList(0, i));
 		List<String> tqs = new ArrayList<String>();
 		for (int j = 0; j < attUsageMatrix.getRows(); j++) {
 			if (tqAttrs.containsAll(attribeReferedByQuery(attUsageMatrix, j))) {
@@ -48,8 +49,8 @@ public class Partition {
 			ctq += acc.get(tq);
 		}
 
-		List<String> bqAttrs = affMatrix.columnNames.subList(i,
-				affMatrix.getRows());
+		List<String> bqAttrs = new ArrayList<String>(
+				affMatrix.columnNames.subList(i, affMatrix.getRows()));
 		List<String> bqs = new ArrayList<String>();
 		for (int j = 0; j < attUsageMatrix.getRows(); j++) {
 			if (bqAttrs.containsAll(attribeReferedByQuery(attUsageMatrix, j)))
@@ -82,15 +83,16 @@ public class Partition {
 
 	}
 
-	private List<String> attribeReferedByQuery(Matrix<Integer> attUsageMatrix, int j) {
+	private List<String> attribeReferedByQuery(Matrix<Integer> attUsageMatrix,
+			int j) {
 		List<String> attrRefered = new ArrayList<String>();
-		for(int col = 0 ; col <attUsageMatrix.getColumns();col++){
+		for (int col = 0; col < attUsageMatrix.getColumns(); col++) {
 			int isUsed = attUsageMatrix.get(j, col);
-			if(isUsed == 1){
+			if (isUsed == 1) {
 				attrRefered.add(attUsageMatrix.columnNames.get(col));
 			}
 		}
 		return attrRefered;
-		
+
 	}
 }

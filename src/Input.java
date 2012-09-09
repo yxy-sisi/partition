@@ -3,6 +3,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Input {
@@ -10,9 +11,9 @@ public class Input {
 	public Matrix<Integer> readAsMatrix(String file) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(
 				new FileInputStream(file)));
-		List<List<Integer>> matrixData = new ArrayList<List<Integer>>();
+		List<List<Integer>> matrixData = new LinkedList<List<Integer>>();
 		String line = br.readLine(); // read by line
-		List<String> rowNames = new ArrayList<String>();
+		List<String> rowNames = new LinkedList<String>();
 		List<String> columnNames = parserColumnNames(line);
 		line = readNextNonEmptyLine(br);
 		do {
@@ -38,7 +39,7 @@ public class Input {
 
 	private List<String> parserColumnNames(String line) {
 		String[] columns = line.split("\\s+");
-		List<String> columnNames = new ArrayList<String>();
+		List<String> columnNames = new LinkedList<String>();
 		for (String column : columns) {
 			if (column != null && !column.trim().isEmpty())
 				columnNames.add(column);
@@ -58,6 +59,5 @@ public class Input {
 		}
 		return row;
 	}
-	
-	
+
 }
