@@ -26,7 +26,7 @@ public class Main {
 		Partition p = new Partition();
 		List<List<String>> partitions = p.partition(attifyMatrix,
 				attUsageMatrix, acc);
-		System.out.println(partitions);
+		System.out.println("result :" + partitions);
 	}
 
 	private static Map<String, Integer> calcuteAcc(Matrix<Integer> accMatrix) {
