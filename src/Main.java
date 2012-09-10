@@ -8,15 +8,15 @@ public class Main {
 		String caInputFile1 = "case/1/ca.txt";
 		String refInputFile1 = "case/1/ref.txt";
 		String accInputFile1 = "case/1/acc.txt";
-		runTest(caInputFile1, refInputFile1, accInputFile1);
+		runTest(caInputFile1, refInputFile1, accInputFile1, 1);
 		String caInputFile2 = "case/2/ca.txt";
 		String refInputFile2 = "case/2/ref.txt";
 		String accInputFile2 = "case/2/acc.txt";
-		runTest(caInputFile2, refInputFile2, accInputFile2);
+		runTest(caInputFile2, refInputFile2, accInputFile2, 2);
 	}
 
 	private static void runTest(String caInputFile, String refInputFile,
-			String accInputFile) throws IOException {
+			String accInputFile, int n) throws IOException {
 		Input input = new Input();
 		Matrix<Integer> attifyMatrix = input.readAsMatrix(caInputFile);
 		attifyMatrix.print();
@@ -27,8 +27,8 @@ public class Main {
 		attUsageMatrix.print();
 
 		Partition p = new Partition();
-		List<List<String>> partitions = p.partition(attifyMatrix,
-				attUsageMatrix, acc);
+		List<List<String>> partitions = p.partitionN(attifyMatrix,
+				attUsageMatrix, acc, n);
 		System.out.println(partitions);
 	}
 

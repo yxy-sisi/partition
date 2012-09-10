@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +10,7 @@ public class Partition {
 		List<List<String>> partitions;
 	}
 
-	public List<List<String>> partition(Matrix<Integer> affMatrix,
+	public Result partition(Matrix<Integer> affMatrix,
 			Matrix<Integer> attUsageMatrix, Map<String, Integer> acc) {
 		Result max = null;
 		for (int i = 1; i < affMatrix.getRows(); i++) {
@@ -19,7 +20,44 @@ public class Partition {
 			}
 			affMatrix.shift();
 		}
-		return max.partitions;
+		return max;
+	}
+
+	public List<List<String>> partitionN(Matrix<Integer> affMatrix,
+			Matrix<Integer> attUsageMatrix, Map<String, Integer> acc,
+			int fragement) {
+		List<List<String>> parts = new ArrayList<List<String>>();
+		Result res = null;
+		for (int i = 0; i < fragement; i++) {
+			res = partition(affMatrix, attUsageMatrix, acc);
+			List<String> subColumnNames = res.partitions.get(1);
+			parts.add(res.partitions.get(0));
+
+			affMatrix = affMatrix.subMatrix(subColumnNames, subColumnNames);
+			List<String> queryRelatedToSubMatrix = getRelatedQuerys(
+					attUsageMatrix, subColumnNames);
+			attUsageMatrix = attUsageMatrix.subMatrix(subColumnNames,
+					queryRelatedToSubMatrix);
+		}
+		if (res != null)
+			parts.add(res.partitions.get(1));
+		return parts;
+
+	}
+
+	private List<String> getRelatedQuerys(Matrix<Integer> attUsageMatrix,
+			List<String> subColumnNames) {
+		List<String> queryRelatedToSubMatrix = new LinkedList<String>();
+		for (int j = 0; j < attUsageMatrix.getRows(); j++) {
+			List<String> relatedAttributes = attribeReferedByQuery(
+					attUsageMatrix, j);
+			for (String attr : relatedAttributes) {
+				if (subColumnNames.contains(attr)) {
+					queryRelatedToSubMatrix.add(attUsageMatrix.rowNames.get(j));
+				}
+			}
+		}
+		return queryRelatedToSubMatrix;
 	}
 
 	private Result calculateMaxZ(Matrix<Integer> affMatrix,
