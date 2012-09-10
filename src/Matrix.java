@@ -23,7 +23,7 @@ public class Matrix<T> {
 		}
 		for (List<T> row : data) {
 			if (row.size() != columnNames.size()) {
-				throw new IllegalStateException("column not match with data ");
+				throw new IllegalStateException("columns not match with data ");
 			}
 		}
 
@@ -55,7 +55,7 @@ public class Matrix<T> {
 	 * @param i
 	 * @param j
 	 */
-	public void shifRow() {
+	public void shiftRow() {
 		shift(data);
 		shift(rowNames);
 	}
@@ -90,11 +90,11 @@ public class Matrix<T> {
 	 * shift the first clomun and row to last
 	 */
 	public void shift() {
-		shifRow();
-		shifColumn();
+		shiftRow();
+		shiftColumn();
 	}
 
-	private void shifColumn() {
+	private void shiftColumn() {
 		for (List<T> row : data) {
 			shift(row);
 		}

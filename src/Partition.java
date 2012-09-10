@@ -64,7 +64,7 @@ public class Partition {
 			Matrix<Integer> attUsageMatrix, Map<String, Integer> acc) {
 		Result max = null;
 		for (int i = 1; i < affMatrix.getRows(); i++) {
-			Result result = calacuteZ(affMatrix, attUsageMatrix, acc, i);
+			Result result = calculateZ(affMatrix, attUsageMatrix, acc, i);
 			if (max == null || max.z < result.z) {
 				max = result;
 			}
@@ -72,7 +72,8 @@ public class Partition {
 		return max;
 	}
 
-	private Result calacuteZ(Matrix<Integer> affMatrix,
+	// calculate z value while cutting at the index i
+	private Result calculateZ(Matrix<Integer> affMatrix,
 			Matrix<Integer> attUsageMatrix, Map<String, Integer> acc, int i) {
 		List<String> tqAttrs = new ArrayList<String>(
 				affMatrix.columnNames.subList(0, i));
@@ -121,6 +122,7 @@ public class Partition {
 
 	}
 
+	// which attributes does the query involve with
 	private List<String> attribeReferedByQuery(Matrix<Integer> attUsageMatrix,
 			int j) {
 		List<String> attrRefered = new ArrayList<String>();

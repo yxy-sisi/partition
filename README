@@ -1,0 +1,23 @@
+This is a simple Java Implementation of Vertical Partitioning!!!
+It is just a demo!!!
+
+Project layout
+ root |-- src                 ********** the source code
+ 	  |-- case				  ********** input files of tow cases
+ 	  |--README			      ********** simple documentation
+ 	  |-- partition.jar 	  ********** the executable jar
+ 
+ 
+ 
+ Dependencies
+ 	Only depends on jdk (test with jdk 1.6.x)
+   
+ How to run this demo?
+ 	|-- with eclipse 
+ 		|--create a java project, copy(merge) src and case folder to you project
+ 		|--find Main.java, right click and run as java application
+ 	|-- run the executable jar
+ 		|-- make sure the jar file and case folder in the same path
+ 		|-- using java -jar xxx.jar or double click the jar
+	 
+ 

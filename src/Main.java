@@ -19,17 +19,15 @@ public class Main {
 			String accInputFile, int n) throws IOException {
 		Input input = new Input();
 		Matrix<Integer> attifyMatrix = input.readAsMatrix(caInputFile);
-		attifyMatrix.print();
 		Matrix<Integer> accMatrix = input.readAsMatrix(accInputFile);
 		Map<String, Integer> acc = calcuteAcc(accMatrix);
-		accMatrix.print();
 		Matrix<Integer> attUsageMatrix = input.readAsMatrix(refInputFile);
-		attUsageMatrix.print();
 
 		Partition p = new Partition();
 		List<List<String>> partitions = p.partitionN(attifyMatrix,
 				attUsageMatrix, acc, n);
 		System.out.println(partitions);
+
 	}
 
 	private static Map<String, Integer> calcuteAcc(Matrix<Integer> accMatrix) {
